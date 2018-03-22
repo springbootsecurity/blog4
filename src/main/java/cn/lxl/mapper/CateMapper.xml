@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lxl.mapper.CateMapper">
+    <select id="getAllCate" resultType="cn.lxl.bean.Cate">
+        SELECT * FROM cate
+    </select>
+
+    <select id="addCate" parameterType="java.lang.String">
+        INSERT INTO cate set cateName=#{cateName}
+    </select>
+    <select id="queryById" parameterType="java.lang.Integer" resultType="cn.lxl.bean.Cate">
+        SELECT * FROM cate WHERE id =#{id}
+    </select>
+    <update id="updateById" >
+        UPDATE cate SET cateName=#{cateName} where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM  cate WHERE id=#{id}
+    </delete>
+</mapper>

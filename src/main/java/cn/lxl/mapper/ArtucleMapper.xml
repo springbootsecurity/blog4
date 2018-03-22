@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lxl.mapper.ArticleMapper">
+    <resultMap id="BaseArticleAndCate" type="cn.lxl.bean.Article">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="summary" property="summary"/>
+        <result column="publishDate" property="publishDate"/>
+        <result column="cateid" property="cateid"/>
+        <result column="userId" property="userId"/>
+        <association property="cate" javaType="cn.lxl.bean.Cate">
+            <id column="id" property="id"/>
+            <result column="cateName" property="cateName"/>
+        </association>
+
+    </resultMap>
+
+    <select id="getArticleAll" resultMap="BaseArticleAndCate">
+       SELECT ar.* ,a.cateName FROM article ar left join cate a ON ar.cateid = a.id
+    </select>
+    <insert id="addArticle" parameterType="cn.lxl.bean.Article">
+        INSERT INTO article (title,summary,publishDate,cateid) VALUES (#{title},#{summary},#{publishDate},#{cateid})
+    </insert>
+    <update id="update" parameterType="cn.lxl.bean.Article" >
+        UPDATE article SET title=#{title},summary=#{summary},cateid=#{cateid} where id=#{id}
+    </update>
+</mapper>
